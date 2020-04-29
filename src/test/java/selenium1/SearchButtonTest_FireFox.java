@@ -2,6 +2,7 @@ package selenium1;
 
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -54,5 +55,21 @@ public class SearchButtonTest_FireFox {
         String text = search_button.getAttribute("value");
 
         Assert.assertEquals(text, search_text, "Text not found!");
+    }
+    
+    @Test
+    public void verifySearchInputField() {
+    	
+    	driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        driver.get("http://www.google.com");
+
+        WebElement search_input_field = driver.findElement(By.name("q"));
+        search_input_field.sendKeys("google" + Keys.ENTER);
+        
+        //Find an element which contains number of search results
+        WebElement result_stats = driver.findElement(By.id("result-stats"));
+        
+        Assert.assertNotNull(result_stats);
     }
 }
